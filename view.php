@@ -1,4 +1,6 @@
-<?php require_once('header.php'); ?>
+<?php require_once('header.php'); 
+session_start();
+?>
 <body class="view">
 <div class="container inner">
 <header class="masthead mb-auto">
@@ -8,6 +10,8 @@
         <a class="nav-link" href="index.php">Home</a>
         <a class="nav-link" href="add.php">Share Your Tune</a>
         <a class="nav-link" href="view.php">View Playlists</a>
+        <a class="nav-link" href="forget.php">Forget Me</a>
+
       </nav>
     </div>
   </header>
@@ -29,6 +33,13 @@
     $records = $statement->fetchAll(); 
 
     // echo out the top of the table 
+    
+    if (isset($_SESSION['uname'])) {
+      echo '<h1 class="cover-heading">viewing your playlist ' . $_SESSION['uname'] . '! </h1>';
+    } else {
+      echo '<h1 class="cover-heading">viewing your playlist .</h1>';
+    }
+    
 
     echo "<table class='table'>";
 
@@ -42,7 +53,7 @@
     }
     catch(PDOException $e) {
         $error_message = $e->getMessage(); 
-        echo "<p> $error message </p>"; 
+        echo "<p> $error_message message </p>"; 
     }
     ?>
     </main>
